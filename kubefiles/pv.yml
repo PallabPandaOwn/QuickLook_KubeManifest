@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-log
+spec:
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /testpallab/log
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain

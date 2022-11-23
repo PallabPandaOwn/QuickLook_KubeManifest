@@ -1,0 +1,12 @@
+deployment:
+  name: challenge
+  image:
+    app: httpd
+    version: 2.0
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
+
+service:
+  name: challengesvc
+  type: NodePort
+  port: 31234

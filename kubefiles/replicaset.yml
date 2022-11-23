@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-replica
+  labels:
+    app: nginx-replica
+spec:
+  selector:
+    matchLabels:
+      app: nginx-replica
+  replicas: 2
+  template:
+    metadata:
+      name: nginx-replica
+      labels:
+        app: nginx-replica
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          imagePullPolicy: Always
+      
