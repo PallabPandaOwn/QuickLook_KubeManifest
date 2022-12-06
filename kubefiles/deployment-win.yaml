@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: win-test
+  labels: 
+    app:  win
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: win
+  template:
+    metadata:
+      labels:
+        app: win
+    spec:
+      nodeSelector:
+        kubernetes.io/os: windows
+      tolerations:
+      - key: "node"
+        operator: "Equal"
+        value:  "win"
+        effect: "NoSchedule"
+      containers:
+      - image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+        imagePullPolicy: Always
+        name: web
+        ports:
+        - containerPort: 80
+          name: web
+          protocol: TCP
+        volumeMounts:
+          - mountPath: "/var/test"
+            name: myvolume
+      volumes:
+      - name: myvolume
+        persistentVolumeClaim:
+          claimName: myclaim-1
